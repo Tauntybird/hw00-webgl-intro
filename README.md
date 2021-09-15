@@ -1,8 +1,13 @@
 # HW 0: Noisy Planet Part 1 (Intro to Javascript and WebGL)
 
+## Result
 Link to live demo: https://tauntybird.github.io/hw00-webgl-intro/
+
+Come check out the Flappy Cube! Used 3D FBM noise function to texture and many cos/sin and noise functions for movement in order to create this piece of excited geometry. You can even tinge it with some color in the top right corner, wow! 
+
 ![](woo_flappy_cube.png)
 
+## Instructions
 <p align="center">
   <img width="360" height="360" src="https://user-images.githubusercontent.com/1758825/132532354-e3a45402-e484-499e-bfa7-2d73b9f2c946.png">
 </p>
