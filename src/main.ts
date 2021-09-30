@@ -15,7 +15,7 @@ const controls = {
   tesselations: 6,
   'Load Scene': loadScene, // A function pointer, essentially
   'FBM Offset': 1,
-  'Land-Water Ratio': 1,
+  'Land-Water Ratio': 5,
 };
 
 let icosphere: Icosphere;
@@ -49,7 +49,7 @@ function main() {
   const gui = new DAT.GUI();
   gui.add(controls, 'tesselations', 0, 8).step(1);
   gui.add(controls, 'Load Scene');
-  gui.add(controls, 'FBM Offset', 0, 8).step(1);
+  gui.add(controls, 'FBM Offset', 0, 8).step(.1);
   gui.add(controls, 'Land-Water Ratio', 0, 10).step(.1);
   gui.addColor(palette, 'Tree Color');
 
