@@ -3,9 +3,20 @@
 ## Result
 Link to live demo: https://tauntybird.github.io/hw00-webgl-intro/
 
-Come check out the Flappy Cube! Used 3D FBM noise function to texture and many cos/sin and noise functions for movement in order to create this piece of excited geometry. You can even tinge it with some color in the top right corner, wow! 
+Look at my gooey, spiky planet! Try setting tesselations to 7 or 8, I think it looks cooler that way.
 
-![](woo_flappy_cube.png)
+I used Perlin for the oceans and FBM for the land. I also used Perlin for the forests (the spikes are supposed to be trees... anyways), by moving up points that were past a specified threshold value and setting a variable so that the fragment shader can color the spikes with a custom color. The sandy cliffs are lerp'd with the water level so they aren't completely straight and vertical.
+
+I used mix, gain, and easing to smooth the land into ocean biome (as well as the colors). I also used a mix (haha get it) of those toolbox functions to determine the spread of the poles and the forest biome's trees/tree heights (as the trees get further from the equator they get smaller in size and more sparse, eventually vanishing before the plain mountain biome and the polar caps biome, so trees only grow in a strip that congregates around the middle of the planet). The color of the beach cliffs biome (sides of land bordering water) are colored with a cosine color palette that is also used to color the land formations (it kind of looks like tiramisu or ice cream sandwich to me).
+
+The land, trees, and poles are all using Lambert shading while the water uses Blinn-Phong shading. As for why there is a light on the back of the planet, lets just say there's an invisible small moon reflecting the sun? I'm not really sure why it's there...
+
+Modifiable attributes are color of the trees/spikes, ratio of land to water, and an offset for the land's FBM function. The color is passed onto the fragment shader as a uniform variable to color the trees (as I described earlier), the ratio of land to water just modifies the threshold value which FBM is read at (so when the value is higher, the threshold is higher, meaning less land/FBM is shown as the threshold becomes stricter), and the offset for the land's FBM function just adjusts the planet's location in the 3D FBM space to create different continents.
+
+<!-- Come check out the Flappy Cube! Used 3D FBM noise function to texture and many cos/sin and noise functions for movement in order to create this piece of excited geometry. You can even tinge it with some color in the top right corner, wow!  -->
+
+<!-- ![](woo_flappy_cube.png) -->
+![](gooey_spiky_planet.png)
 
 ## Instructions
 <p align="center">
