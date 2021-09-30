@@ -12,8 +12,10 @@ import Cube from './geometry/Cube';
 // Define an object with application parameters and button callbacks
 // This will be referred to by dat.GUI's functions that add GUI elements.
 const controls = {
-  tesselations: 5,
+  tesselations: 6,
   'Load Scene': loadScene, // A function pointer, essentially
+  'FBM Offset': 1,
+  'Land-Water Ratio': 1,
 };
 
 let icosphere: Icosphere;
@@ -21,17 +23,17 @@ let square: Square;
 let cube: Cube;
 let prevTesselations: number = 5;
 var palette = {
-  color1: [0, 255, 100, 1]
+  'Tree Color': [126, 51, 153, 1]
 }
 let time: number = 0;
 
 function loadScene() {
-  //icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 1, controls.tesselations);
-  //icosphere.create();
+  icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 2, controls.tesselations);
+  icosphere.create();
   //square = new Square(vec3.fromValues(0, 0, 0));
   //square.create();
-  cube = new Cube(vec3.fromValues(0, 0, 0));
-  cube.create();
+  //cube = new Cube(vec3.fromValues(0, 0, 0));
+  //cube.create();
 }
 
 function main() {
@@ -47,7 +49,9 @@ function main() {
   const gui = new DAT.GUI();
   gui.add(controls, 'tesselations', 0, 8).step(1);
   gui.add(controls, 'Load Scene');
-  gui.addColor(palette, 'color1')
+  gui.add(controls, 'FBM Offset', 0, 8).step(1);
+  gui.add(controls, 'Land-Water Ratio', 0, 10).step(.1);
+  gui.addColor(palette, 'Tree Color');
 
   // get canvas and webgl context
   const canvas = <HTMLCanvasElement> document.getElementById('canvas');
@@ -69,8 +73,8 @@ function main() {
   gl.enable(gl.DEPTH_TEST);
 
   const lambert = new ShaderProgram([
-    new Shader(gl.VERTEX_SHADER, require('./shaders/custom-vert.glsl')),
-    new Shader(gl.FRAGMENT_SHADER, require('./shaders/custom-frag.glsl')),
+    new Shader(gl.VERTEX_SHADER, require('./shaders/planet-vert.glsl')),
+    new Shader(gl.FRAGMENT_SHADER, require('./shaders/planet-frag.glsl')),
   ]);
 
   // This function will be called every frame
@@ -83,13 +87,13 @@ function main() {
     if(controls.tesselations != prevTesselations)
     {
       prevTesselations = controls.tesselations;
-      icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 1, prevTesselations);
+      icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 2, prevTesselations);
       icosphere.create();
     }
-    renderer.render(camera, lambert, vec4.fromValues(palette.color1[0], palette.color1[1], palette.color1[2], palette.color1[3]), time, [
-      //icosphere,
+    renderer.render(camera, lambert, vec4.fromValues(palette['Tree Color'][0], palette['Tree Color'][1], palette['Tree Color'][2], palette['Tree Color'][3]), controls['FBM Offset'], controls['Land-Water Ratio'], time, [
+      icosphere,
       //square,
-      cube
+      //cube
     ]);
     stats.end();
 
