@@ -1,5 +1,5 @@
 # HW 0: Noisy Planet Part 1 (Intro to Javascript and WebGL)
-
+By Meggie Cheng (PennKey: meggie)
 ## Result
 Link to live demo: https://tauntybird.github.io/hw00-webgl-intro/
 
